@@ -6,8 +6,8 @@
 - [ ] add necessary libraries
 
 # Backend
-
-- [ ] add schemas
+- [ ] add schemas(User, Transaction, Category, Account)
+- [X] add jwt
 - [ ] add data encryption
 
 # Names
