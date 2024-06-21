@@ -1,13 +1,17 @@
-# Frontend:
+# Frontend
+
 - [X] add shadcn
 - [ ] make design system
 - [ ] make default markdown
 - [ ] add necessary libraries
 
-# Backend:
-- [ ] add schemas
+# Backend
 
-# Names:
+- [ ] add schemas
+- [ ] add data encryption
+
+# Names
+
 - FinManage
 - TransactEase
 - BudgetBuddy
