@@ -1,6 +1,6 @@
 import z from "zod";
 
-export const createUserBody = z
+export const signUpBodySchema = z
   .object({
     firstName: z.string(),
     lastName: z.string(),
@@ -16,3 +16,8 @@ export const createUserBody = z
       });
     }
   });
+
+export const signInBodySchema = z.object({
+  email: z.string().email(),
+  password: z.string(),
+});
