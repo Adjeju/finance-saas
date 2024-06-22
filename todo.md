@@ -1,15 +1,14 @@
 # Frontend
 
-- [X] add shadcn
 - [ ] make design system
 - [ ] make default markdown
 - [ ] add necessary libraries
+- [ ] move strings to constants
 
 # Backend
 
 - [ ] add schemas(User, Transaction, Category, Account)
-- [X] add jwt
-- [X] add data encryption
+- [ ] move strings to constants
 
 # Names
 
