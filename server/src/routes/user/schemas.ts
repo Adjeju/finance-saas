@@ -1,23 +1,28 @@
 import z from "zod";
+import { serverMessages } from "../../constants";
 
 export const signUpBodySchema = z
   .object({
-    firstName: z.string(),
-    lastName: z.string(),
-    email: z.string().email(),
-    password: z.string(),
-    confirmPassword: z.string(),
+    firstName: z.string({ required_error: serverMessages.required }),
+    lastName: z.string({ required_error: serverMessages.required }),
+    email: z
+      .string({ required_error: serverMessages.required })
+      .email({ message: serverMessages.invalidEmail }),
+    password: z.string({ required_error: serverMessages.required }),
+    confirmPassword: z.string({ required_error: serverMessages.required }),
   })
   .superRefine(({ password, confirmPassword }, ctx) => {
     if (password !== confirmPassword) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: "Password & ConfirmPassword",
+        message: serverMessages.passwordsDontMatch,
       });
     }
   });
 
 export const signInBodySchema = z.object({
-  email: z.string().email(),
-  password: z.string(),
+  email: z
+    .string({ required_error: serverMessages.required })
+    .email({ message: serverMessages.invalidEmail }),
+  password: z.string({ required_error: serverMessages.required }),
 });

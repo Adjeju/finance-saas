@@ -21,7 +21,7 @@ export const userRoutes: FastifyPluginAsyncZod = async (app) => {
       const isExists = Boolean(await app.userService.get({ email }));
 
       if (isExists) {
-        return reply.status(409).send({ message: "User in db" });
+        return reply.status(400).send({ message: "User in db" });
       }
 
       const hashPassword = await bcrypt.hash(password, 10);
@@ -49,7 +49,7 @@ export const userRoutes: FastifyPluginAsyncZod = async (app) => {
       const user = await app.userService.get({ email });
 
       if (!user) {
-        return reply.status(409).send({ message: "User not in db" });
+        return reply.status(404).send({ message: "User not in db" });
       }
 
       const isCorrect = await bcrypt.compare(password, user.password);
@@ -63,18 +63,6 @@ export const userRoutes: FastifyPluginAsyncZod = async (app) => {
       });
 
       return { user: exclude(user, ["password"]), token };
-    }
-  );
-
-  app.post(
-    routes.test,
-    {
-      onRequest: [app.validateJWT],
-    },
-    async function (request, reply) {
-      console.log("request.userId", request.userId);
-
-      return true;
     }
   );
 };
