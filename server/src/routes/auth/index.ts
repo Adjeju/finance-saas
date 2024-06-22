@@ -1,8 +1,8 @@
 import { FastifyPluginAsync } from "fastify";
-import { userRoutes } from "./routes";
+import { authRoutes } from "./routes";
 
 const router: FastifyPluginAsync = async (fastify, opts) => {
-  fastify.register(userRoutes);
+  fastify.register(authRoutes);
 };
 
 export default router;

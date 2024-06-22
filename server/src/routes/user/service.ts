@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { CreateUserData } from "./types";
+import { CreateUserData } from "../auth/types";
 
 export class UserService {
   constructor(private db: PrismaClient) {}

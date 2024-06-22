@@ -7,6 +7,8 @@ import {
   ZodTypeProvider,
 } from "fastify-type-provider-zod";
 import { ZodError } from "zod";
+import fcors from "@fastify/cors";
+import { UserService } from "./routes/user/service";
 
 export interface AppOptions
   extends FastifyServerOptions,
@@ -23,6 +25,8 @@ const app: FastifyPluginAsync<AppOptions> = async (
   fastify.setValidatorCompiler(validatorCompiler);
   fastify.setSerializerCompiler(serializerCompiler);
   fastify.withTypeProvider<ZodTypeProvider>();
+
+  fastify.register(fcors);
 
   fastify.setErrorHandler((error, request, reply) => {
     if (error instanceof ZodError) {
