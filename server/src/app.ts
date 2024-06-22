@@ -8,7 +8,6 @@ import {
 } from "fastify-type-provider-zod";
 import { ZodError } from "zod";
 import fcors from "@fastify/cors";
-import { UserService } from "./routes/user/service";
 
 export interface AppOptions
   extends FastifyServerOptions,

@@ -8,39 +8,45 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { SignInFormValues, signInFormSchema } from "../validation";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { useSignInMutation } from "../hooks";
+import { SignInFormValues, signInFormSchema } from "../../validation";
+import { Form } from "@/components/ui/form";
+import { useSignInMutation } from "../../hooks";
+import { SignInFormEmailField, SignInFormPasswordField } from "./fields";
+import { toast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
+import { routes } from "@/constants";
 
 type Props = {};
+
+const defaultValues = {
+  email: "",
+  password: "",
+};
 
 export const SignInForm = (props: Props) => {
   const { mutate } = useSignInMutation();
 
+  const router = useRouter();
+
   const form = useForm<SignInFormValues>({
     resolver: zodResolver(signInFormSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+    defaultValues,
   });
 
   const onSubmit = (values: SignInFormValues) => {
     mutate(values, {
-      onSuccess: () => {
-        console.log("success");
+      onSuccess: ({ user, token }) => {
+        const { firstName, lastName } = user;
+        localStorage.setItem("token", token);
+        toast({
+          title: "Sign Up",
+          description: `Welcome back, ${firstName} ${lastName}`,
+        });
+        router.push(routes.dashboard);
       },
     });
   };
@@ -56,32 +62,8 @@ export const SignInForm = (props: Props) => {
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter email" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter password" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <SignInFormEmailField />
+            <SignInFormPasswordField />
             <Button type="submit" className="w-full">
               Login
             </Button>

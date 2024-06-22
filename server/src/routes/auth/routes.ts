@@ -32,7 +32,7 @@ export const authRoutes: FastifyPluginAsyncZod = async (app) => {
         password: hashPassword,
       });
 
-      return user;
+      return { message: "User has been created!" };
     }
   );
 

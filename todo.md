@@ -4,6 +4,8 @@
 - [ ] make default markdown
 - [ ] add necessary libraries
 - [ ] move strings to constants
+- [ ] add auth logic
+- [ ] add validation
 
 # Backend
 
