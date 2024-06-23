@@ -21,4 +21,40 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  Account  Account[]
+  Category Category[]
+}
+
+model Transaction {
+  id         Int      @id @default(autoincrement())
+  amount     Int
+  payee      String
+  date       DateTime
+  accountId  Int?
+  categoryId Int?
+  notes      String?
+
+  category Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  account  Account?  @relation(fields: [accountId], references: [id], onDelete: SetNull)
+}
+
+model Account {
+  id        Int      @id @default(autoincrement())
+  name      String
+  userId    Int
+  createdAt DateTime @default(now())
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String
+  userId    Int
+  createdAt DateTime @default(now())
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
 }
