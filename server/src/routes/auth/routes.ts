@@ -25,7 +25,8 @@ export const authRoutes: FastifyPluginAsyncZod = async (app) => {
       }
 
       const hashPassword = await bcrypt.hash(password, 10);
-      const user = await app.userService.create({
+
+      await app.userService.create({
         email,
         firstName,
         lastName,
