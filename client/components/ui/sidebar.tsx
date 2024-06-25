@@ -1,62 +1,70 @@
 import React from "react";
-import { Button } from "./button";
 import {
   ArrowLeftRight,
+  BarChart,
   BookPlus,
+  CreditCard,
+  DollarSign,
+  Home,
   LayoutDashboard,
-  User,
+  Settings,
   Wallet,
 } from "lucide-react";
 import { routes } from "@/constants";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@radix-ui/react-tooltip";
+
 import Link from "next/link";
 
 type Props = {};
 
-const links = [
-  { label: "Dashboard", Icon: LayoutDashboard, href: routes.dashboard },
-  { label: "Transactions", Icon: ArrowLeftRight, href: routes.transactions },
-  { label: "Accounts", Icon: Wallet, href: routes.accounts },
-  { label: "Categories", Icon: BookPlus, href: routes.categories },
-];
-
 export const Sidebar = (props: Props) => {
   return (
-    <div className="h-screen bg-primary flex flex-col justify-between items-center py-4 px-2 gap-4 ">
-      <div>Logo</div>
-      <div className="flex-1 flex flex-col justify-between items-center">
-        <div className="flex flex-col gap-8 justify-center flex-1">
-          {links.map(({ href, Icon, label }, idx) => (
-            <TooltipProvider key={idx}>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Link href={href}>
-                    <Icon className="w-6 h-6 text-white" />
-                  </Link>
-                </TooltipTrigger>
-                <TooltipContent
-                  side="right"
-                  sideOffset={8}
-                  className="border border-b px-2 py-1.5 rounded-md bg-white"
-                >
-                  <p>{label}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          ))}
-        </div>
-        <Link href={routes.settings} className="">
-          <User className="w-6 h-6 text-white" />
+    <div className="flex flex-col gap-2 border-r bg-muted/40 lg:block">
+      <div className="flex h-[60px] items-center px-6">
+        <Link
+          href="#"
+          className="flex items-center gap-2 font-semibold"
+          prefetch={false}
+        >
+          <DollarSign className="h-6 w-6" />
+          <span className="">Finance App</span>
         </Link>
       </div>
-      <Button variant="destructive" className="w-full">
-        Exit
-      </Button>
+      <div className="flex-1">
+        <nav className="grid items-start px-4 text-base font-medium">
+          <Link
+            href="#"
+            className="flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all hover:bg-muted"
+            prefetch={false}
+          >
+            <Home className="h-4 w-4" />
+            Overview
+          </Link>
+          <Link
+            href="#"
+            className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:bg-muted"
+            prefetch={false}
+          >
+            <CreditCard className="h-4 w-4" />
+            Transactions
+          </Link>
+          <Link
+            href="#"
+            className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:bg-muted"
+            prefetch={false}
+          >
+            <BarChart className="h-4 w-4" />
+            Budgets
+          </Link>
+          <Link
+            href="#"
+            className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:bg-muted"
+            prefetch={false}
+          >
+            <Settings className="h-4 w-4" />
+            Settings
+          </Link>
+        </nav>
+      </div>
     </div>
   );
 };

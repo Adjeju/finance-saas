@@ -1,3 +1,4 @@
+import { getSkip, getTotalPages } from "../../utils/pagination";
 import {
   createCategoryBodySchema,
   updateCategoryBodySchema,
@@ -24,13 +25,13 @@ const categoryRouter: FastifyPluginAsyncZod = async (
       const search = request.query.search;
       const userId = request.userId;
 
-      const skip = perPage * (page - 1);
+      const skip = getSkip({ page, perPage });
 
       const totalCount = await app.prisma.category.count({
         where: { name: { contains: search }, userId },
       });
 
-      const totalPages = Math.ceil(totalCount / perPage);
+      const totalPages = getTotalPages({ perPage, totalCount });
 
       const data = await app.categoryService.getList({
         userId,
