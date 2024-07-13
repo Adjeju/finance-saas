@@ -8,7 +8,13 @@ import React, { PropsWithChildren } from "react";
 type Props = PropsWithChildren;
 
 const Providers = ({ children }: Props) => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
 
   return (
     <QueryClientProvider client={queryClient}>

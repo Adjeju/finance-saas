@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -12,19 +11,21 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { categoryFormSchema, CategoryFormValues } from "../validation";
 
 type Props = {
   handleSubmit: (values: CategoryFormValues) => void;
+  data?: CategoryFormValues;
 };
 
-export const CategoryForm = ({ handleSubmit }: Props) => {
+const defaultValues: CategoryFormValues = {
+  name: "",
+};
+
+export const CategoryForm = ({ handleSubmit, data }: Props) => {
   const form = useForm<CategoryFormValues>({
     resolver: zodResolver(categoryFormSchema),
-    defaultValues: {
-      name: "",
-    },
+    defaultValues: data || defaultValues,
   });
 
   const onSubmit = (values: CategoryFormValues) => handleSubmit(values);

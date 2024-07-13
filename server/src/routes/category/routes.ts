@@ -4,6 +4,7 @@ import {
   updateCategoryBodySchema,
   categoryParamsSchema,
   getCategoriesQueryStringSchema,
+  deleteCategoryBodySchema,
 } from "./schemas";
 import { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 
@@ -79,18 +80,22 @@ const categoryRouter: FastifyPluginAsyncZod = async (
   );
 
   app.delete(
-    "/:id",
-    { schema: { params: categoryParamsSchema } },
+    "/",
+    { schema: { body: deleteCategoryBodySchema } },
     async function (request, reply) {
-      const id = request.params.id;
+      const { ids } = request.body;
 
-      const isExists = Boolean(await app.categoryService.get(+id));
+      for (const id of ids) {
+        const isExists = Boolean(await app.categoryService.get(+id));
 
-      if (!isExists) {
-        return reply.status(404).send({ message: "Not Found" });
+        if (!isExists) {
+          return reply
+            .status(404)
+            .send({ message: `Category with id:${id} not found` });
+        }
       }
 
-      await app.categoryService.delete(+id);
+      await app.categoryService.deleteMany(ids);
 
       return { message: "deleted" };
     }

@@ -6,7 +6,7 @@ type State = {
   close: () => void;
 };
 
-export const useCategoriesSheet = create<State>((set) => ({
+export const useCreateCategoriesSheet = create<State>((set) => ({
   isOpen: false,
   open: () => set(() => ({ isOpen: true })),
   close: () => set({ isOpen: false }),

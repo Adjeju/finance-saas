@@ -1,1 +1,3 @@
-export const apiRoutes = {};
+export const apiRoutes = {
+  category: "category",
+};

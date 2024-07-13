@@ -5,13 +5,13 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
-import { useCategoriesSheet } from "../hooks";
+import { useUpdateCategorySheet } from "../hooks/use-update-categories-sheet";
+import { useDeleteCategoryAlert } from "../hooks";
 
 export const columns: ColumnDef<Category>[] = [
   {
@@ -48,8 +48,10 @@ export const columns: ColumnDef<Category>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const { open } = useCategoriesSheet();
-      const payment = row.original;
+      const { open } = useUpdateCategorySheet();
+      const { open: openAlert } = useDeleteCategoryAlert();
+
+      const { id } = row.original;
 
       return (
         <DropdownMenu>
@@ -62,13 +64,16 @@ export const columns: ColumnDef<Category>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuItem
               className="flex items-center gap-2"
-              onClick={open}
+              onClick={() => open(id)}
             >
               <Edit className="w-4 h-4" />
               <div>Edit</div>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="flex items-center gap-2">
+            <DropdownMenuItem
+              className="flex items-center gap-2"
+              onClick={() => openAlert(id)}
+            >
               <Trash className="w-4 h-4" />
               <div>Delete</div>
             </DropdownMenuItem>

@@ -3,18 +3,28 @@
 import AccountHeader from "@/components/shared/account-header";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import React, { useState } from "react";
-import { useCategoriesSheet, useGetCategoriesList } from "../hooks";
+import {
+  useCreateCategoriesSheet,
+  useDeleteCategoriesMutation,
+  useGetCategoriesList,
+} from "../hooks";
 import { Button } from "@/components/ui/button";
-import { CategoriesSheet } from "../components";
+import {
+  CreateCategorySheet,
+  DeleteCategoryAlert,
+  UpdateCategorySheet,
+} from "../components";
 import { DataTable } from "@/components/ui/data-table";
 import { useDebounce } from "@/hooks/use-debounce";
 import { ApiPerPage } from "@/constants";
 import { columns } from "../constants";
+import { Row } from "@tanstack/react-table";
+import { Category } from "../types";
 
 type Props = {};
 
 const CategoriesPage = (props: Props) => {
-  const { open } = useCategoriesSheet();
+  const { open } = useCreateCategoriesSheet();
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(ApiPerPage.min);
@@ -26,6 +36,11 @@ const CategoriesPage = (props: Props) => {
     perPage,
     search: debounceSearch,
   });
+
+  const { mutate } = useDeleteCategoriesMutation();
+
+  const handleDelete = (data: Row<Category>[]) =>
+    mutate(data.map(({ original }) => original.id));
 
   return (
     <div>
@@ -49,14 +64,14 @@ const CategoriesPage = (props: Props) => {
               page={page}
               perPage={perPage}
               totalPages={data?.totalPages || 1}
-              handleDelete={(rows) =>
-                console.log(rows.map((row) => row.original.id))
-              }
+              handleDelete={handleDelete}
             />
           </CardContent>
         </Card>
       </div>
-      <CategoriesSheet />
+      <CreateCategorySheet />
+      <UpdateCategorySheet />
+      <DeleteCategoryAlert />
     </div>
   );
 };

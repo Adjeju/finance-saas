@@ -10,6 +10,10 @@ export const categoryParamsSchema = z.object({
   id: z.string(),
 });
 
+export const deleteCategoryBodySchema = z.object({
+  ids: z.array(z.number()).min(1),
+});
+
 export const updateCategoryBodySchema = z.object({
   name: z.string(),
 });

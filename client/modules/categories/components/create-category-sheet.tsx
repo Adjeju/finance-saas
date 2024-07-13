@@ -6,15 +6,15 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import React from "react";
-import { useCategoriesSheet } from "../hooks";
+import { useCreateCategoriesSheet } from "../hooks";
 import { CategoryForm } from "./form";
 import { useCreateCategoryMutation } from "../hooks/mutations";
 import { CategoryFormValues } from "../validation";
 
 type Props = {};
 
-export const CategoriesSheet = (props: Props) => {
-  const { close, isOpen } = useCategoriesSheet();
+export const CreateCategorySheet = (props: Props) => {
+  const { close, isOpen } = useCreateCategoriesSheet();
 
   const { mutate } = useCreateCategoryMutation();
 

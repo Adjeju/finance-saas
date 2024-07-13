@@ -20,8 +20,14 @@ export class CategoryService {
     });
   }
 
-  async delete(id: number) {
-    return this.db.category.delete({ where: { id } });
+  async deleteMany(ids: number[]) {
+    return this.db.category.deleteMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
   }
 
   async getList({
