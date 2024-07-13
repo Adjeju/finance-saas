@@ -40,8 +40,9 @@ export const SignInForm = (props: Props) => {
   const onSubmit = (values: SignInFormValues) => {
     mutate(values, {
       onSuccess: ({ user, token }) => {
-        const { firstName, lastName } = user;
+        const { firstName, lastName, id } = user;
         localStorage.setItem("token", token);
+        localStorage.setItem("userId", id.toString());
         toast({
           title: "Sign Up",
           description: `Welcome back, ${firstName} ${lastName}`,

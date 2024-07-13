@@ -1,4 +1,4 @@
-import { Sidebar } from "@/components/ui/sidebar";
+import { Sidebar } from "@/components/shared/sidebar";
 
 export default function AccountLayout({
   children,
@@ -6,9 +6,9 @@ export default function AccountLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="grid min-h-screen w-full overflow-hidden lg:grid-cols-[200px_1fr]">
+    <main className="grid min-h-screen w-full overflow-hidden grid-cols-[200px_1fr]">
       <Sidebar />
-      <div>{children}</div>
+      {children}
     </main>
   );
 }

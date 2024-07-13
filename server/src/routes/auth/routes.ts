@@ -60,7 +60,7 @@ export const authRoutes: FastifyPluginAsyncZod = async (app) => {
       }
 
       const token = jwt.sign({ userId: user.id }, env.JWT_KEY, {
-        expiresIn: "1d",
+        expiresIn: env.JWT_EXPIRES_IN,
       });
 
       return { user: exclude(user, ["password"]), token };
