@@ -4,7 +4,7 @@ import {
   updateCategoryBodySchema,
   categoryParamsSchema,
   getCategoriesQueryStringSchema,
-  deleteCategoryBodySchema,
+  deleteCategoriesBodySchema,
 } from "./schemas";
 import { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 
@@ -49,6 +49,7 @@ const categoryRouter: FastifyPluginAsyncZod = async (
     "/:id",
     {
       schema: { params: categoryParamsSchema },
+      onRequest: [app.validateJWT],
     },
     async function (request, reply) {
       const id = request.params.id;
@@ -73,15 +74,16 @@ const categoryRouter: FastifyPluginAsyncZod = async (
       const { name } = request.body;
       const userId = request.userId;
 
-      const category = app.categoryService.create({ name, userId });
-
-      return category;
+      return app.categoryService.create({ name, userId });
     }
   );
 
   app.delete(
     "/",
-    { schema: { body: deleteCategoryBodySchema } },
+    {
+      schema: { body: deleteCategoriesBodySchema },
+      onRequest: [app.validateJWT],
+    },
     async function (request, reply) {
       const { ids } = request.body;
 
@@ -108,6 +110,7 @@ const categoryRouter: FastifyPluginAsyncZod = async (
         body: updateCategoryBodySchema,
         params: categoryParamsSchema,
       },
+      onRequest: [app.validateJWT],
     },
     async function (request, reply) {
       const id = request.params.id;
