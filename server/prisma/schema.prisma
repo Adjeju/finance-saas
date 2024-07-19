@@ -22,8 +22,9 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  Account  Account[]
-  Category Category[]
+  Account     Account[]
+  Category    Category[]
+  Transaction Transaction[]
 }
 
 model Transaction {
@@ -34,9 +35,11 @@ model Transaction {
   accountId  Int?
   categoryId Int?
   notes      String?
+  userId     Int
 
   category Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
   account  Account?  @relation(fields: [accountId], references: [id], onDelete: SetNull)
+  user     User      @relation(fields: [userId], references: [id])
 }
 
 model Account {
