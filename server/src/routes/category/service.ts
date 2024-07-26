@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { CreateCategoryBodyValues } from "./schemas";
+import { GetCategoryListData, UpdateCategoryData } from "./types";
 
 export class CategoryService {
   constructor(private db: PrismaClient) {}
@@ -13,7 +14,7 @@ export class CategoryService {
     });
   }
 
-  async update({ id, name }: { name: string; id: number }) {
+  async update({ id, name }: UpdateCategoryData) {
     return this.db.category.update({
       where: { id },
       data: { name },
@@ -30,17 +31,7 @@ export class CategoryService {
     });
   }
 
-  async getList({
-    userId,
-    search,
-    skip,
-    take,
-  }: {
-    userId?: number;
-    search?: string;
-    take: number;
-    skip: number;
-  }) {
+  async getList({ userId, search, skip, take }: GetCategoryListData) {
     return this.db.category.findMany({
       where: { userId, name: { contains: search } },
       skip,

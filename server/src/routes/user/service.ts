@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { CreateUserData } from "../auth/types";
+import { CreateUserData, GetUserData } from "./types";
 
 export class UserService {
   constructor(private db: PrismaClient) {}
@@ -8,7 +8,7 @@ export class UserService {
     return this.db.user.create({ data });
   }
 
-  async get(where: { email?: string; id?: number }) {
+  async get(where: GetUserData) {
     return this.db.user.findFirst({ where });
   }
 

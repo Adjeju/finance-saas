@@ -21,27 +21,31 @@ const categoryRouter: FastifyPluginAsyncZod = async (
       onRequest: [app.validateJWT],
     },
     async function (request, reply) {
-      const page = +request.query.page;
-      const perPage = +request.query.perPage;
-      const search = request.query.search;
-      const userId = request.userId;
+      try {
+        const page = +request.query.page;
+        const perPage = +request.query.perPage;
+        const search = request.query.search;
+        const userId = request.userId;
 
-      const skip = getSkip({ page, perPage });
+        const skip = getSkip({ page, perPage });
 
-      const totalCount = await app.prisma.category.count({
-        where: { name: { contains: search }, userId },
-      });
+        const totalCount = await app.prisma.category.count({
+          where: { name: { contains: search }, userId },
+        });
 
-      const totalPages = getTotalPages({ perPage, totalCount });
+        const totalPages = getTotalPages({ perPage, totalCount });
 
-      const data = await app.categoryService.getList({
-        userId,
-        search,
-        take: perPage,
-        skip,
-      });
+        const data = await app.categoryService.getList({
+          userId,
+          search,
+          take: perPage,
+          skip,
+        });
 
-      return { data, page, totalCount, totalPages };
+        return { data, page, totalCount, totalPages };
+      } catch (error) {
+        return reply.status(500).send(error);
+      }
     }
   );
 
@@ -52,15 +56,19 @@ const categoryRouter: FastifyPluginAsyncZod = async (
       onRequest: [app.validateJWT],
     },
     async function (request, reply) {
-      const id = request.params.id;
+      try {
+        const id = request.params.id;
 
-      const category = await app.categoryService.get(+id);
+        const category = await app.categoryService.get(+id);
 
-      if (!category) {
-        return reply.status(404).send({ message: "Not found" });
+        if (!category) {
+          return reply.status(404).send({ message: "Not found" });
+        }
+
+        return category;
+      } catch (error) {
+        return reply.status(500).send(error);
       }
-
-      return category;
     }
   );
 
@@ -71,10 +79,14 @@ const categoryRouter: FastifyPluginAsyncZod = async (
       onRequest: [app.validateJWT],
     },
     async function (request, reply) {
-      const { name } = request.body;
-      const userId = request.userId;
+      try {
+        const { name } = request.body;
+        const userId = request.userId;
 
-      return app.categoryService.create({ name, userId });
+        return app.categoryService.create({ name, userId });
+      } catch (error) {
+        return reply.status(500).send(error);
+      }
     }
   );
 
@@ -85,21 +97,25 @@ const categoryRouter: FastifyPluginAsyncZod = async (
       onRequest: [app.validateJWT],
     },
     async function (request, reply) {
-      const { ids } = request.body;
+      try {
+        const { ids } = request.body;
 
-      for (const id of ids) {
-        const isExists = Boolean(await app.categoryService.get(+id));
+        for (const id of ids) {
+          const isExists = Boolean(await app.categoryService.get(+id));
 
-        if (!isExists) {
-          return reply
-            .status(404)
-            .send({ message: `Category with id:${id} not found` });
+          if (!isExists) {
+            return reply
+              .status(404)
+              .send({ message: `Category with id:${id} not found` });
+          }
         }
+
+        await app.categoryService.deleteMany(ids);
+
+        return { message: "deleted" };
+      } catch (error) {
+        return reply.status(500).send(error);
       }
-
-      await app.categoryService.deleteMany(ids);
-
-      return { message: "deleted" };
     }
   );
 
@@ -113,18 +129,22 @@ const categoryRouter: FastifyPluginAsyncZod = async (
       onRequest: [app.validateJWT],
     },
     async function (request, reply) {
-      const id = request.params.id;
-      const { name } = request.body;
+      try {
+        const id = request.params.id;
+        const { name } = request.body;
 
-      const isExists = Boolean(await app.categoryService.get(+id));
+        const isExists = Boolean(await app.categoryService.get(+id));
 
-      if (!isExists) {
-        return reply.status(404).send({ message: "Not Found" });
+        if (!isExists) {
+          return reply.status(404).send({ message: "Not Found" });
+        }
+
+        const category = await app.categoryService.update({ id: +id, name });
+
+        return category;
+      } catch (error) {
+        return reply.status(500).send(error);
       }
-
-      const category = await app.categoryService.update({ id: +id, name });
-
-      return category;
     }
   );
 };

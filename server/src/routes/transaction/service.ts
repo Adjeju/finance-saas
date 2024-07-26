@@ -3,6 +3,7 @@ import {
   CreateTransactionBodyValues,
   UpdateTransactionBodyValues,
 } from "./schemas";
+import { GetTransactionListData } from "./types";
 
 export class TransactionService {
   constructor(private db: PrismaClient) {}
@@ -40,16 +41,7 @@ export class TransactionService {
     categoryId,
     from,
     to,
-  }: {
-    userId?: number;
-    search?: string;
-    take: number;
-    skip: number;
-    accountId?: number;
-    categoryId?: number;
-    from?: string;
-    to?: string;
-  }) {
+  }: GetTransactionListData) {
     const where: Prisma.TransactionWhereInput = {
       userId,
       accountId,

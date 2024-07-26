@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { CreateAccountBodyValues } from "./schemas";
+import { GetAccountListData, UpdateAccountData } from "./types";
 
 export class AccountService {
   constructor(private db: PrismaClient) {}
@@ -14,7 +15,7 @@ export class AccountService {
     });
   }
 
-  async update({ id, name }: { name: string; id: number }) {
+  async update({ id, name }: UpdateAccountData) {
     return this.db.account.update({
       where: { id },
       data: {
@@ -33,17 +34,7 @@ export class AccountService {
     });
   }
 
-  async getList({
-    userId,
-    search,
-    skip,
-    take,
-  }: {
-    userId?: number;
-    search?: string;
-    take: number;
-    skip: number;
-  }) {
+  async getList({ userId, search, skip, take }: GetAccountListData) {
     return this.db.account.findMany({
       skip,
       take,
