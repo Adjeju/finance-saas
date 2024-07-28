@@ -1,6 +1,7 @@
+import env from "@/env";
 import ky from "ky";
 
-const prefixUrl = "http://127.0.0.1:3000";
+const prefixUrl = env.BACKEND_URL;
 
 export const api = ky.create({
   prefixUrl,
