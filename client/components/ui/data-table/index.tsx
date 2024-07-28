@@ -69,9 +69,10 @@ export function DataTable<TData, TValue>({
         {table.getFilteredSelectedRowModel().rows.length > 0 && (
           <Button
             variant="destructive"
-            onClick={() =>
-              handleDelete(table.getFilteredSelectedRowModel().rows)
-            }
+            onClick={() => {
+              handleDelete(table.getFilteredSelectedRowModel().rows);
+              setRowSelection({});
+            }}
           >
             <Trash className="mr-2 h-4 w-4" />
             Delete
