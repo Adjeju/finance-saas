@@ -45,7 +45,9 @@ export class TransactionService {
     const where: Prisma.TransactionWhereInput = {
       userId,
       accountId,
-      payee: search,
+      payee: {
+        contains: search,
+      },
       categoryId,
     };
 
@@ -68,6 +70,10 @@ export class TransactionService {
       where,
       skip,
       take,
+      include: {
+        category: true,
+        account: true,
+      },
     });
   }
 }

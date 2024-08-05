@@ -1,7 +1,6 @@
-import env from "@/env";
 import ky from "ky";
 
-const prefixUrl = env.BACKEND_URL;
+const prefixUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const api = ky.create({
   prefixUrl,

@@ -3,7 +3,7 @@ import { getAccountsListApi, getAccountById } from "../api";
 import { GetAccountsListQueryParams } from "../types";
 import { accountQueryKeys } from "../constants";
 
-export const useGetAccountsList = (params: GetAccountsListQueryParams) =>
+export const useGetAccountsListQuery = (params: GetAccountsListQueryParams) =>
   useQuery({
     queryKey: accountQueryKeys.getList(params),
     queryFn: () => getAccountsListApi(params),

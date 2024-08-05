@@ -3,7 +3,7 @@ import { getCategoriesListApi, getCategoryById } from "../api";
 import { GetCategoriesListQueryParams } from "../types";
 import { categoryQueryKeys } from "../constants";
 
-export const useGetCategoriesList = (params: GetCategoriesListQueryParams) =>
+export const useGetCategoriesListQuery = (params: GetCategoriesListQueryParams) =>
   useQuery({
     queryKey: categoryQueryKeys.getList(params),
     queryFn: () => getCategoriesListApi(params),

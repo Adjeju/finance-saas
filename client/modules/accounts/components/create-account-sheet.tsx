@@ -18,13 +18,10 @@ export const CreateAccountSheet = (props: Props) => {
 
   const { mutate } = useCreateAccountMutation();
 
-  const handleSubmit = ({ name }: AccountFormValues) =>
-    mutate(
-      { name, userId: localStorage.getItem("userId")! },
-      {
-        onSuccess: close,
-      }
-    );
+  const handleSubmit = (data: AccountFormValues) =>
+    mutate(data, {
+      onSuccess: close,
+    });
 
   return (
     <Sheet open={isOpen} onOpenChange={close}>

@@ -9,6 +9,6 @@ export type Account = {
 
 export type GetAccountsListQueryParams = ApiPagination & { search: string };
 
-export type CreateAccountBody = Omit<Account, "id" | "createdAt">;
+export type CreateAccountBody = { name: string };
 
-export type UpdateAccountBody = Omit<Account, "createdAt" | "userId">;
+export type UpdateAccountBody = { name: string; id: number };

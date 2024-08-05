@@ -1,13 +1,14 @@
 "use client";
 
 import React from "react";
-import { DollarSign, Home, Layers, Wallet } from "lucide-react";
+import { DollarSign, HandCoins, Home, Layers, Wallet } from "lucide-react";
 import { routes } from "@/constants";
 
 const links = [
   { label: "Dashboard", Icon: Home, href: routes.dashboard },
   { label: "Categories", Icon: Layers, href: routes.categories },
   { label: "Accounts", Icon: Wallet, href: routes.accounts },
+  { label: "Transactions", Icon: HandCoins, href: routes.transactions },
 ];
 
 import Link from "next/link";
@@ -47,38 +48,6 @@ export const Sidebar = (props: Props) => {
               {label}
             </Link>
           ))}
-          {/* <Link
-            href="#"
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all hover:bg-muted"
-            prefetch={false}
-          >
-            <Home className="h-4 w-4" />
-            Overview
-          </Link>
-          <Link
-            href="#"
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:bg-muted"
-            prefetch={false}
-          >
-            <CreditCard className="h-4 w-4" />
-            Transactions
-          </Link>
-          <Link
-            href="#"
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:bg-muted"
-            prefetch={false}
-          >
-            <BarChart className="h-4 w-4" />
-            Budgets
-          </Link>
-          <Link
-            href="#"
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:bg-muted"
-            prefetch={false}
-          >
-            <Settings className="h-4 w-4" />
-            Settings
-          </Link> */}
         </nav>
       </div>
     </div>

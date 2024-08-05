@@ -9,6 +9,6 @@ export type Category = {
 
 export type GetCategoriesListQueryParams = ApiPagination & { search: string };
 
-export type CreateCategoryBody = Omit<Category, "id" | "createdAt">;
+export type CreateCategoryBody = { name: string };
 
-export type UpdateCategoryBody = Omit<Category, "createdAt" | "userId">;
+export type UpdateCategoryBody = { name: string; id: number };

@@ -18,13 +18,10 @@ export const CreateCategorySheet = (props: Props) => {
 
   const { mutate } = useCreateCategoryMutation();
 
-  const handleSubmit = ({ name }: CategoryFormValues) =>
-    mutate(
-      { name, userId: localStorage.getItem("userId")! },
-      {
-        onSuccess: close,
-      }
-    );
+  const handleSubmit = (data: CategoryFormValues) =>
+    mutate(data, {
+      onSuccess: close,
+    });
 
   return (
     <Sheet open={isOpen} onOpenChange={close}>

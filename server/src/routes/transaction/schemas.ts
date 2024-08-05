@@ -4,9 +4,9 @@ export const createTransactionBodySchema = z.object({
   amount: z.number(),
   payee: z.string(),
   date: z.string().datetime(),
-  accountId: z.number().optional(),
-  categoryId: z.number().optional(),
-  notes: z.string().optional(),
+  accountId: z.number().nullable(),
+  categoryId: z.number().nullable(),
+  notes: z.string().nullable(),
 });
 
 export type CreateTransactionBodyValues = z.infer<
@@ -17,8 +17,9 @@ export const updateTransactionBodySchema = z.object({
   amount: z.number().optional(),
   payee: z.string().optional(),
   date: z.string().datetime().optional(),
-  categoryId: z.number().optional(),
-  notes: z.string().optional(),
+  categoryId: z.number().nullable().optional(),
+  accountId: z.number().nullable().optional(),
+  notes: z.string().nullable().optional(),
 });
 
 export type UpdateTransactionBodyValues = z.infer<
