@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/form";
 import {
   useCreateAccountMutation,
-  useGetAccountsList,
+  useGetAccountsListQuery,
 } from "@/modules/accounts/hooks";
 import { TransactionFormValues } from "@/modules/transactions/validation";
 import React from "react";
@@ -18,7 +18,7 @@ type Props = {};
 export const AccountField = (props: Props) => {
   const form = useFormContext<TransactionFormValues>();
 
-  const { data, isLoading } = useGetAccountsList({
+  const { data, isLoading } = useGetAccountsListQuery({
     page: 1,
     perPage: 100,
     search: "",

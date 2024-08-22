@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import {
   useCreateAccountSheet,
   useDeleteAccountsMutation,
-  useGetAccountsList,
+  useGetAccountsListQuery,
 } from "../hooks";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,7 +31,7 @@ const AccountsPage = (props: Props) => {
 
   const debounceSearch = useDebounce(search);
 
-  const { data } = useGetAccountsList({
+  const { data } = useGetAccountsListQuery({
     page,
     perPage,
     search: debounceSearch,
@@ -47,9 +47,9 @@ const AccountsPage = (props: Props) => {
       <AccountHeader>Accounts</AccountHeader>
       <div className="p-4">
         <Card>
-          <CardHeader className="flex-row justify-between items-center">
+          <CardHeader className="flex-row items-center justify-between">
             <div>Account list</div>
-            <Button className="block ml-auto" onClick={open}>
+            <Button className="ml-auto block" onClick={open}>
               Add new account
             </Button>
           </CardHeader>

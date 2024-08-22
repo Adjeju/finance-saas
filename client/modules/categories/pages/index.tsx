@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import {
   useCreateCategoriesSheet,
   useDeleteCategoriesMutation,
-  useGetCategoriesList,
+  useGetCategoriesListQuery,
 } from "../hooks";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,7 +31,7 @@ const CategoriesPage = (props: Props) => {
 
   const debounceSearch = useDebounce(search);
 
-  const { data } = useGetCategoriesList({
+  const { data } = useGetCategoriesListQuery({
     page,
     perPage,
     search: debounceSearch,
@@ -47,9 +47,9 @@ const CategoriesPage = (props: Props) => {
       <AccountHeader>Categories</AccountHeader>
       <div className="p-4">
         <Card>
-          <CardHeader className="flex-row justify-between items-center">
+          <CardHeader className="flex-row items-center justify-between">
             <div>Category list</div>
-            <Button className="block ml-auto" onClick={open}>
+            <Button className="ml-auto block" onClick={open}>
               Add new category
             </Button>
           </CardHeader>

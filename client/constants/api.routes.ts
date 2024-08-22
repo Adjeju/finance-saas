@@ -4,4 +4,5 @@ export const apiRoutes = {
   signUp: "auth/sign-up",
   signIn: "auth/sign-in",
   transaction: "transaction",
+  summary: "summary",
 };
