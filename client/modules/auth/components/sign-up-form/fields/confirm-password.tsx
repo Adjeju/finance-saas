@@ -5,7 +5,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { PasswordField } from "@/components/ui/password-field";
 import { SignUpFormValues } from "@/modules/auth/validation";
 import React from "react";
 import { useFormContext } from "react-hook-form";
@@ -23,7 +23,7 @@ export const SignInFormConfirmPasswordField = (props: Props) => {
         <FormItem>
           <FormLabel>Confirm Password</FormLabel>
           <FormControl>
-            <Input placeholder="Confirm password" {...field} />
+            <PasswordField placeholder="Confirm password" {...field} />
           </FormControl>
           <FormMessage />
         </FormItem>

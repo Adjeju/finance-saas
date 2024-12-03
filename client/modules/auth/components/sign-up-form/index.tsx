@@ -49,7 +49,7 @@ export const SignUpForm = (props: Props) => {
     mutate(values, {
       onSuccess: ({ message }) => {
         toast({
-          title: "Sign In",
+          title: "Sign Up",
           description: message,
         });
         router.push(routes.signIn);

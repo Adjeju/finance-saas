@@ -11,7 +11,7 @@ export const jwtPlugin: FastifyPluginAsync = fp(async function (fastify, opts) {
         const token = request.headers.authorization?.split(" ")[1];
 
         if (!token) {
-          return reply.status(404).send({ error: "Auth required" });
+          return reply.status(401).send({ error: "Auth required" });
         }
 
         const { userId } = jwt.verify(token, env.JWT_KEY) as {
@@ -20,7 +20,7 @@ export const jwtPlugin: FastifyPluginAsync = fp(async function (fastify, opts) {
 
         request.userId = userId;
       } catch (err) {
-        reply.status(401).send(err);
+        reply.status(404).send(err);
       }
     }
   );

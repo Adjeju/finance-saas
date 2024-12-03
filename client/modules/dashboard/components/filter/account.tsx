@@ -22,6 +22,10 @@ export const AccountField = () => {
     return <div>Loading</div>;
   }
 
+  if (!data) {
+    return;
+  }
+
   return (
     <div className="flex flex-col gap-2">
       <Label>Account</Label>
@@ -33,7 +37,7 @@ export const AccountField = () => {
           <SelectValue placeholder="Select account" />
         </SelectTrigger>
         <SelectContent>
-          {data!.data.map(({ id, name }) => (
+          {data.data.map(({ id, name }) => (
             <SelectItem key={id} value={id.toString()}>
               {name}
             </SelectItem>

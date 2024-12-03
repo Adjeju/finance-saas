@@ -44,7 +44,7 @@ export const SignInForm = (props: Props) => {
         localStorage.setItem("token", token);
         localStorage.setItem("userId", id.toString());
         toast({
-          title: "Sign Up",
+          title: "Sign In",
           description: `Welcome back, ${firstName} ${lastName}`,
         });
         router.push(routes.dashboard);
